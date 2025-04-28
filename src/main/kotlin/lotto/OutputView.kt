@@ -1,10 +1,12 @@
 // src/main/kotlin/lotto/OutputView.kt
 package lotto
 
+import java.util.Locale
+
 object OutputView {
     /** Prints the number of purchased tickets */
     fun printPurchase(count: Int) {
-        println("You have purchased \$count tickets.")
+        println("You have purchased $count tickets.")
     }
 
     /** Prints each Lotto ticket (sorted) */
@@ -17,7 +19,6 @@ object OutputView {
     /** Prints statistics and return rate */
     fun printStatistics(statistics: LottoStatistics) {
         println("Lotto result statistics:")
-        // Print ranks in order
         val order = listOf(
             LottoRank.FIFTH,
             LottoRank.FOURTH,
@@ -35,7 +36,9 @@ object OutputView {
                 LottoRank.FIRST  -> "6 Matches"
                 else             -> ""
             }
-            println("$label (${rank.prize} KRW) - $count tickets")
+            // 천 단위 콤마 포맷과 en-dash 적용
+            val prizeFormatted = String.format(Locale.US, "%,d", rank.prize)
+            println("$label ($prizeFormatted KRW) – $count tickets")
         }
         println("Total return rate is ${statistics.returnRate()}%.")
     }

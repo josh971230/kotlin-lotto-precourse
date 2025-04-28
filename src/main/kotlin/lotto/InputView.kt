@@ -1,4 +1,3 @@
-
 package lotto
 
 import camp.nextstep.edu.missionutils.Console
@@ -6,39 +5,22 @@ import camp.nextstep.edu.missionutils.Console
 object InputView {
     fun readPurchaseAmount(): Int {
         println("Please enter the purchase amount.")
-        while (true) {
-            try {
-                val line = Console.readLine().trim()
-                val amount = line.toInt()
-                Purchase(amount)
-                return amount
-            } catch (e: IllegalArgumentException) {
-                println(e.message)
-            }
+        val line = Console.readLine().trim()
+        val amount = try {
+            line.toInt()
+        } catch (e: NumberFormatException) {
+            println("[ERROR] Purchase amount must be a valid integer.")
+            throw IllegalArgumentException("[ERROR] Purchase amount must be a valid integer.")
         }
+        Purchase(amount)
+        return amount
     }
-
     fun readWinningNumbers(): List<Int> {
-        println("Please enter last week's winning numbers (comma-separated).")
-        while (true) {
-            try {
-                val raw = Console.readLine()
-                return LottoInput.parseWinningNumbers(raw)
-            } catch (e: IllegalArgumentException) {
-                println(e.message)
-            }
-        }
+        println("Please enter last week's winning numbers (comma-separated)." )
+        return LottoInput.parseWinningNumbers(Console.readLine())
     }
-
     fun readBonusNumber(winning: List<Int>): Int {
         println("Please enter the bonus number.")
-        while (true) {
-            try {
-                val raw = Console.readLine()
-                return LottoInput.parseBonusNumber(raw, winning)
-            } catch (e: IllegalArgumentException) {
-                println(e.message)
-            }
-        }
+        return LottoInput.parseBonusNumber(Console.readLine(), winning)
     }
 }
