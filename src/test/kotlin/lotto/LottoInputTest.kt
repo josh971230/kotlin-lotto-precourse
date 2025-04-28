@@ -1,4 +1,4 @@
-// src/test/kotlin/lotto/LottoInputTest.kt
+
 package lotto
 
 import org.assertj.core.api.Assertions.assertThat
